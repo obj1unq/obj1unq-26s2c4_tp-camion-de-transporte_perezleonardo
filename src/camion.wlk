@@ -12,7 +12,7 @@ object camion {
 	}
 
 	method descargar(unaCosa){
-		if (cosas.contains(unaCosa)) cosas.remove(unaCosa) 
+		if (cosas.contains(unaCosa)) cosas.remove(unaCosa)
 	}
 	method pesoTotal (){
 		return (tara + self.cargaActual()) 
