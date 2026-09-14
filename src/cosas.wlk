@@ -30,9 +30,9 @@ object arena {
   method nivelPeligrosidad(){return 1}
 }
 object bateriaAntiaerea {
-  var estaConMisiles = true
-  method peso(){return if (estaConMisiles) 300 else 200}
-  method nivelPeligrosidad(){return if (estaConMisiles) 100 else 0}  
+  var tieneMisiles = true
+  method peso(){ return if (tieneMisiles) 300 else 200 }
+  method nivelPeligrosidad(){return if (tieneMisiles) 100 else 0} 
 }
 
 object contenedorPortuario {
@@ -44,7 +44,7 @@ object contenedorPortuario {
 	return 100 + self.cargaActual()
   }
   method nivelPeligosidad() {
-	return if (cosas.isEmpty()) 0 else () else //max, niveles de peligrosidad de cosas
+	return if (cosas.isEmpty()) 0 else (cosas.map{ cosa => cosa.nivelDePeligrosidad()}.max())
   }  
 }
 
@@ -55,7 +55,7 @@ object residuosRadioactivos {
 }
 
 object embalajeDeSeguridad {
-  var cosa = algo
+  var cosa = bumblebee
   method peso(){
 	return cosa.peso()
   } 
