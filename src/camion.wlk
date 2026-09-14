@@ -32,9 +32,15 @@ object camion {
 		return self.objetosPeligrosos(nivelMaximoPeligrosidad).isEmpty()
 	}
 	method tieneAlgoQuePesaEntre(min,max){
-		return 
+		return cosas.any({cosa => cosa.peso().between(min,max)})
 	} 
-	method cosaMasPesada(){}
-	method totalBultos(){}
-	method pesos(){} 
+	method cosaMasPesada(){
+		return cosas.max{ cosa => cosa.peso()}
+	}
+	method totalBultos(){
+		return cosas.sum{ cosa => }
+	}
+	method pesos(){
+		return cosas.map{ cosa => cosa.peso()}
+	} 
 }
