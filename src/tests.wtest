@@ -22,6 +22,53 @@ describe "testeo del camion" {
     assert.throwsException({camion.descargar(knightRider)})
   }
 }
+describe "metodos camion" {
+
+	method initialize() {
+		camion.cargar(knightRider)
+		camion.cargar(bumblebee)
+	}
+
+	test "testear pesoTotal()" {
+		assert.equals(2300, camion.pesoTotal())
+	}
+
+	test "testear excedidoDePeso()" {
+		assert.notThat(camion.excedidoDePeso())
+	}
+
+	test "testear objetosPeligrosos()" {
+		assert.equals([bumblebee], camion.objetosPeligrosos(20))
+	}
+
+	test "testear objetosMasPeligrososQue()" {
+		assert.equals([bumblebee], camion.objetosMasPeligrososQue(knightRider))
+	}
+
+	test "testear puedeCircularEnRuta() falso" {
+		assert.notThat(camion.puedeCircularEnRuta(20))
+	}
+
+	test "testear puedeCircularEnRuta() verdadero" {
+		assert.that(camion.puedeCircularEnRuta(50))
+	}
+
+	test "testear tieneAlgoQuePesaEntre()" {
+		assert.that(camion.tieneAlgoQuePesaEntre(400, 600))
+	}
+
+	test "testear cosaMasPesada()" {
+		assert.equals(bumblebee, camion.cosaMasPesada())
+	}
+
+	test "testear totalBultos()" {
+		assert.equals(3, camion.totalBultos())
+	}
+
+	test "testear pesos()" {
+		assert.equals([500, 800], camion.pesos())
+	}
+}
 
 describe "modificaciones al cargar" {
 
