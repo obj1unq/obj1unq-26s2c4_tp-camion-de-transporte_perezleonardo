@@ -22,3 +22,11 @@ describe "testeo del camion" {
     assert.throwsException({camion.descargar(knightRider)})
   }
 }
+
+describe "modificaciones al cargar" {
+
+	test "testear transformar() de bumblebee al cargar" {
+		camion.cargar(bumblebee)
+		assert.equals(30, bumblebee.nivelPeligrosidad())
+	}
+}

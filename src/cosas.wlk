@@ -56,7 +56,7 @@ object contenedorPortuario {
   method peso() {
 	return 100 + self.cargaActual()
   }
-  method nivelPeligosidad() {
+  method nivelPeligrosidad() {
 	return if (cosas.isEmpty()) 0 else (cosas.map{ cosa => cosa.nivelPeligrosidad()}.max())
   }  
   method bulto(){return 1 + cosas.sum{ cosa => cosa.bulto()}}
@@ -76,7 +76,7 @@ object residuosRadioactivos {
 }
 
 object embalajeDeSeguridad {
-  var cosa = bumblebee
+  var property cosa = bumblebee
   method peso(){
 	return cosa.peso()
   } 
