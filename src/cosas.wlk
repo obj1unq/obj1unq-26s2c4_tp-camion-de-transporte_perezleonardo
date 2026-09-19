@@ -11,12 +11,12 @@ object bumblebee {
 	
 	method peso() { return 800 }
 	method nivelPeligrosidad() { return if (transformadoEnAuto) { 15 } else { 30 }  }
-	method transformar() { transformadoEnAuto = not transformadoEnAuto }
+	method transformar() { transformadoEnAuto = false }
   method bulto(){return 2}
 }
 
 object paqueteDeLadrillos{
-	var cantidadLadrillos = 0
+	var property cantidadLadrillos = 0
 	const pesoLadrillo = 2
 	const pesoRefuerzo = 10
 	method peso(){ 
@@ -25,15 +25,15 @@ object paqueteDeLadrillos{
 	method cantidadRefuerzosPara(_cant){
 		return if (cantidadLadrillos <= 1000) (_cant / 100).roundUp() else (_cant / 50).roundUp()  
 		}
-	method nivelPeligrosidad(){ return 50 - self.cantidadRefuerzosPara(cantidadLadrillos)}
+	method nivelPeligrosidad(){ return (50 - self.cantidadRefuerzosPara(cantidadLadrillos)).max(0)}
   method bulto(){
     return if (cantidadLadrillos <= 100) 1 else if (cantidadLadrillos <= 300) 2 else 3
     }
-  method transformar(){cantidadLadrillos -= 2}
+  method transformar(){cantidadLadrillos -= 12}
 }
 
 object arena {
-  var peso = 0 
+  var property peso = 0 
   method peso(){return peso}
   method nivelPeligrosidad(){return 1}
   method bulto(){return 1}
@@ -57,7 +57,7 @@ object contenedorPortuario {
 	return 100 + self.cargaActual()
   }
   method nivelPeligosidad() {
-	return if (cosas.isEmpty()) 0 else (cosas.map{ cosa => cosa.nivelDePeligrosidad()}.max())
+	return if (cosas.isEmpty()) 0 else (cosas.map{ cosa => cosa.nivelPeligrosidad()}.max())
   }  
   method bulto(){return 1 + cosas.sum{ cosa => cosa.bulto()}}
   method transformar (){
@@ -67,9 +67,9 @@ object contenedorPortuario {
 }
 
 object residuosRadioactivos {
-  var peso = 0
+  var property peso = 0
   method peso(){return peso} 
-  method nivelDePeligrosidad(){return 200}
+  method nivelPeligrosidad(){return 200}
   method bulto(){return 1}
   method transformar() { peso += 15}
 
@@ -80,8 +80,8 @@ object embalajeDeSeguridad {
   method peso(){
 	return cosa.peso()
   } 
-  method nivelDePeligrosidad(){
-	return cosa.nivelDePeligrosidad()*0.5
+  method nivelPeligrosidad(){
+	return cosa.nivelPeligrosidad()*0.5
   }
   method bulto(){return 2}
   method transformar(){

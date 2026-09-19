@@ -1,0 +1,24 @@
+import cosas.*
+import camion.* 
+
+describe "testeo del camion" {
+  test "cargar funciona" {
+    camion.cargar(knightRider)
+    assert.that(camion.cosas().contains(knightRider))
+  }
+
+  test "cargar falla"{
+    arena.peso(3000)
+    assert.throwsException({camion.cargar(arena)})
+    assert.notThat(camion.cosas().contains(arena))
+  } 
+
+  test "descargar funciona"{
+    camion.cargar(knightRider)
+    camion.descargar(knightRider)
+    assert.notThat(camion.cosas().contains(knightRider))
+  }
+  test "descargar falla"{
+    assert.throwsException({camion.descargar(knightRider)})
+  }
+}

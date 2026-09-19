@@ -10,6 +10,9 @@ object camion {
 	method excedidoDePeso(unaCosa){
 		return ((self.cargaActual() + unaCosa.peso()) > pesoMax)
 	}
+	method excedidoDePeso() {
+	  return self.pesoTotal() > pesoMax
+	}
 
 	method descargar(unaCosa){
 		if (cosas.contains(unaCosa)) cosas.remove(unaCosa)
@@ -38,7 +41,7 @@ object camion {
 		return cosas.max{ cosa => cosa.peso()}
 	}
 	method totalBultos(){
-		return cosas.sum{ cosa => }
+		return cosas.sum{ cosa => cosa.bulto()}
 	}
 	method pesos(){
 		return cosas.map{ cosa => cosa.peso()}
