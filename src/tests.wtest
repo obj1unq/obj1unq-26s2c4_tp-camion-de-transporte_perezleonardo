@@ -1,0 +1,114 @@
+import cosas.*
+import camion.* 
+
+describe "testeo del camion" {
+  test "cargar funciona" {
+    camion.cargar(knightRider)
+    assert.that(camion.cosas().contains(knightRider))
+  }
+
+  test "cargar falla"{
+    arena.peso(3000)
+    assert.throwsException({camion.cargar(arena)})
+    assert.notThat(camion.cosas().contains(arena))
+  } 
+
+  test "descargar funciona"{
+    camion.cargar(knightRider)
+    camion.descargar(knightRider)
+    assert.notThat(camion.cosas().contains(knightRider))
+  }
+  test "descargar falla"{
+    assert.throwsException({camion.descargar(knightRider)})
+  }
+}
+describe "metodos camion" {
+
+	method initialize() {
+		camion.cargar(knightRider)
+		camion.cargar(bumblebee)
+	}
+
+	test "testear pesoTotal()" {
+		assert.equals(2300, camion.pesoTotal())
+	}
+
+	test "testear excedidoDePeso()" {
+		assert.notThat(camion.excedidoDePeso())
+	}
+
+	test "testear objetosPeligrosos()" {
+		assert.equals([bumblebee], camion.objetosPeligrosos(20))
+	}
+
+	test "testear objetosMasPeligrososQue()" {
+		assert.equals([bumblebee], camion.objetosMasPeligrososQue(knightRider))
+	}
+
+	test "testear puedeCircularEnRuta() falso" {
+		assert.notThat(camion.puedeCircularEnRuta(20))
+	}
+
+	test "testear puedeCircularEnRuta() verdadero" {
+		assert.that(camion.puedeCircularEnRuta(50))
+	}
+
+	test "testear tieneAlgoQuePesaEntre()" {
+		assert.that(camion.tieneAlgoQuePesaEntre(400, 600))
+	}
+
+	test "testear cosaMasPesada()" {
+		assert.equals(bumblebee, camion.cosaMasPesada())
+	}
+
+	test "testear totalBultos()" {
+		assert.equals(3, camion.totalBultos())
+	}
+
+	test "testear pesos()" {
+		assert.equals([500, 800], camion.pesos())
+	}
+}
+
+describe "cosas" {
+
+	test "testear peso() paquete de 950 ladrillos" {
+		paqueteDeLadrillos.cantidadLadrillos(950)
+		assert.equals(2000, paqueteDeLadrillos.peso())
+	}
+
+	test "testear nivelPeligrosidad() paquete de 950 ladrillos" {
+		paqueteDeLadrillos.cantidadLadrillos(950)
+		assert.equals(40, paqueteDeLadrillos.nivelPeligrosidad())
+	}
+
+	test "testear peso() paquete de 1020 ladrillos" {
+		paqueteDeLadrillos.cantidadLadrillos(1020)
+		assert.equals(2250, paqueteDeLadrillos.peso())
+	}
+
+	test "testear nivelPeligrosidad() paquete de 1020 ladrillos" {
+		paqueteDeLadrillos.cantidadLadrillos(1020)
+		assert.equals(29, paqueteDeLadrillos.nivelPeligrosidad())
+	}
+
+	test "testear peso() contenedor portuario" {
+		contenedorPortuario.cosas().add(knightRider)
+		contenedorPortuario.cosas().add(bumblebee)
+		assert.equals(1400, contenedorPortuario.peso())
+	}
+
+	test "testear nivelPeligrosidad() contenedor portuario" {
+		contenedorPortuario.cosas().add(knightRider)
+		contenedorPortuario.cosas().add(bumblebee)
+		assert.equals(15, contenedorPortuario.nivelPeligrosidad())
+	}
+}
+
+describe "modificaciones al cargar" {
+
+	test "testear transformar() de bumblebee al cargar" {
+		camion.cargar(bumblebee)
+		assert.equals(30, bumblebee.nivelPeligrosidad())
+	}
+}
